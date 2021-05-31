@@ -1,0 +1,96 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script>
+      AFRAME.registerComponent("foo", {
+        init: function () {
+          this.el.addEventListener("collide", function (e) {
+            console.log("Player has collided with ", e.detail.body.el);
+            e.detail.target.el; // Original entity (playerEl).
+            e.detail.body.el; // Other entity, which playerEl touched.
+            e.detail.contact; // Stats about the collision (CANNON.ContactEquation).
+            e.detail.contact.ni; // Normal (direction) of the collision (CANNON.Vec3).
+          });
+        },
+      });
+    </script>
+  </head>
+  <body>
+    <a-scene physics="debug: true">
+      <!-- 환경요소 -->
+      <!-- a-assets을 사용하는 이유 request횟수를 줄일 수 있기 때문 -->
+      <a-sky src="./assets/sky.jpg"></a-sky>
+      <a-light type="ambient" position="5 0 5"></a-light>
+      <a-entity id="rig" movement-controls="constrainToNavMesh: true">
+        <a-entity
+          camera
+          position="0 0 10"
+          look-controls="pointerLockEnabled: true"
+        >
+        </a-entity>
+      </a-entity>
+
+      <a-gltf-model
+        src="./assets/isabelle_animal_crossing/scene.gltf"
+        position="0 -4 5"
+        scale="0.5 0.5 0.5"
+        animation="property: object3D.position.y;
+          to: -3; 
+          dir: alternate; 
+          dur: 1000; 
+          loop: true"
+      ></a-gltf-model>
+      <!-- 벽 -->
+      <a-box
+        position="0 0 0"
+        width="20"
+        height="10"
+        src="./assets/wall.jpg"
+        static-body
+      ></a-box>
+      <a-box
+        position="10 0 10"
+        rotation="0 90 0"
+        width="20"
+        height="10"
+        src="./assets/wall.jpg"
+        static-body
+      ></a-box>
+      <a-box
+        position="-10 0 10"
+        rotation="0 90 0"
+        width="20"
+        height="10"
+        src="./assets/wall.jpg"
+        static-body
+      ></a-box>
+      <a-box
+        position="0 0 20"
+        width="20"
+        height="10"
+        src="./assets/wall.jpg"
+        static-body
+      ></a-box>
+      <!-- 천장 & 바닥 -->
+      <a-box
+        position="0 5 10"
+        color="rgb(179, 179, 179)"
+        rotation="90 0 0"
+        width="20"
+        height="20"
+        static-body
+      ></a-box>
+      <a-box
+        position="0 -5 10"
+        rotation="90 0 0"
+        width="20"
+        height="20"
+        src="./assets/floor.png"
+        static-body
+        depth="0.5"
+      ></a-box>
+    </a-scene>
+  </body>
+</html>

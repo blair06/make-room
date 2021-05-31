@@ -1,0 +1,39 @@
+<head>
+  <title>My A-Frame Scene</title>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-room-component/dist/aframe-room-component.min.js"></script>
+</head>
+
+<body>
+  <a-scene>
+    <rw-room position="-2 0 -2" material="color:#866">
+      <rw-wall position="4 0 0"></rw-wall>
+      <rw-wall position="4 0 4"></rw-wall>
+      <rw-wall position="0 0 4"></rw-wall>
+      <rw-wall position="0 0 0">
+        <rw-doorhole id="holeA"></rw-doorhole>
+        <rw-doorlink from="#holeA" to="#holeB" position="2.5 0 0"></rw-doorlink>
+      </rw-wall>
+      <a-gltf-model
+        src="./assets/isabelle_animal_crossing/scene.gltf"
+        position="1 0 2s"
+        scale="0.1 0.1 0.1"
+        animation="property: object3D.position.x;
+          to: 2; 
+          dir: alternate; 
+          dur: 1000; 
+          loop: true"
+      ></a-gltf-model>
+      <rw-ceiling></rw-ceiling>
+    </rw-room>
+    <rw-room position="0 0 -3">
+      <rw-wall position=" 1 0 -1" material="color:#787"></rw-wall>
+      <rw-wall position=" 1 0  1" material="color:#877">
+        <rw-doorhole id="holeB"></rw-doorhole>
+      </rw-wall>
+      <rw-wall position="-1 0  1" material="color:#878"></rw-wall>
+      <rw-wall position="-1 0 -1" material="color:#778"></rw-wall>
+      <rw-ceiling></rw-ceiling>
+    </rw-room>
+  </a-scene>
+</body>
